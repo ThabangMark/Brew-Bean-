@@ -73,18 +73,6 @@ function initializeCart() {
             }
         });
     }
-    
-    // Add event listeners for add to cart buttons
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const productCard = this.closest('.coffee-card') || this.closest('.product-card');
-            if (productCard) {
-                const product = extractProductInfo(productCard);
-                addToCart(product);
-            }
-        });
-    });
 }
 
 function toggleCart() {
@@ -103,39 +91,60 @@ function closeCart() {
     }
 }
 
-function extractProductInfo(productCard) {
-    const name = productCard.querySelector('h3')?.textContent || 'Unknown Product';
-    const priceElement = productCard.querySelector('.price');
-    const price = priceElement ? parseFloat(priceElement.textContent.replace('$', '')) : 0;
-    const image = productCard.querySelector('img')?.src || '/placeholder.svg?height=100&width=100';
+// Fixed addToCart function for menu items
+function addToCart(button) {
+    const menuItem = button.closest('.menu-item');
+    if (!menuItem) {
+        console.error('Menu item not found');
+        return;
+    }
     
-    return {
+    // Extract product information from data attributes and DOM elements
+    const name = menuItem.getAttribute('data-name') || menuItem.querySelector('h4')?.textContent || 'Unknown Product';
+    const priceText = menuItem.getAttribute('data-price') || menuItem.querySelector('.price')?.textContent || '0';
+    const price = parseFloat(priceText.replace('$', ''));
+    const category = menuItem.getAttribute('data-category') || 'Unknown Category';
+    const image = menuItem.querySelector('.item-image img')?.src || '/placeholder.svg?height=100&width=100';
+    
+    const product = {
         id: Date.now() + Math.random(), // Simple ID generation
         name: name,
         price: price,
         image: image,
+        category: category,
         quantity: 1
     };
-}
-
-function addToCart(product) {
+    
+    // Check if item already exists in cart
     const existingItem = cart.find(item => item.name === product.name);
     
     if (existingItem) {
         existingItem.quantity += 1;
+        showCartNotification(`${product.name} quantity updated!`);
     } else {
         cart.push(product);
+        showCartNotification(`${product.name} added to cart!`);
     }
     
     saveCart();
     updateCartDisplay();
-    showCartNotification(`${product.name} added to cart!`);
+    
+    // Add visual feedback to button
+    button.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+        button.style.transform = '';
+    }, 150);
 }
 
 function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    saveCart();
-    updateCartDisplay();
+    const itemIndex = cart.findIndex(item => item.id === productId);
+    if (itemIndex > -1) {
+        const itemName = cart[itemIndex].name;
+        cart.splice(itemIndex, 1);
+        saveCart();
+        updateCartDisplay();
+        showCartNotification(`${itemName} removed from cart!`);
+    }
 }
 
 function updateCartQuantity(productId, newQuantity) {
@@ -179,9 +188,12 @@ function updateCartDisplay() {
         } else {
             cartItems.innerHTML = cart.map(item => `
                 <div class="cart-item">
+                    <div class="cart-item-image">
+                        <img src="${item.image}" alt="${item.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 5px;">
+                    </div>
                     <div class="cart-item-info">
                         <h4>${item.name}</h4>
-                        <p>Qty: ${item.quantity}</p>
+                        <p>Qty: ${item.quantity} × $${item.price.toFixed(2)}</p>
                     </div>
                     <div class="cart-item-controls">
                         <span class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</span>
@@ -206,6 +218,10 @@ function saveCart() {
 }
 
 function showCartNotification(message) {
+    // Remove existing notifications
+    const existingNotifications = document.querySelectorAll('.cart-notification');
+    existingNotifications.forEach(notification => notification.remove());
+    
     // Create notification element
     const notification = document.createElement('div');
     notification.className = 'cart-notification';
@@ -217,9 +233,12 @@ function showCartNotification(message) {
         background: #8B4513;
         color: white;
         padding: 1rem 1.5rem;
-        border-radius: 5px;
+        border-radius: 8px;
         z-index: 10000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         animation: slideInRight 0.3s ease-out;
+        max-width: 300px;
+        font-weight: 500;
     `;
     
     document.body.appendChild(notification);
@@ -421,7 +440,7 @@ function initializeScrollEffects() {
     }, observerOptions);
     
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.coffee-card, .blog-card, .service-card, .contact-item');
+    const animateElements = document.querySelectorAll('.coffee-card, .blog-card, .service-card, .contact-item, .menu-item');
     animateElements.forEach(el => observer.observe(el));
 }
 
@@ -442,6 +461,62 @@ function initializeAnimations() {
         
         .cart-notification {
             animation: slideInRight 0.3s ease-out;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-info h4 {
+            font-size: 0.9rem;
+            margin: 0 0 0.25rem 0;
+            color: #333;
+        }
+        
+        .cart-item-info p {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 0;
+        }
+        
+        .cart-item-controls {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .cart-item-price {
+            font-weight: 600;
+            color: #8B4513;
+            font-size: 0.9rem;
+        }
+        
+        .remove-item {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .remove-item:hover {
+            background: #c0392b;
         }
     `;
     document.head.appendChild(style);
@@ -504,7 +579,7 @@ function initializeSearch() {
 
 function performSearch(e) {
     const query = e.target.value.toLowerCase().trim();
-    const searchableElements = document.querySelectorAll('.coffee-card, .blog-card, .service-card');
+    const searchableElements = document.querySelectorAll('.coffee-card, .blog-card, .service-card, .menu-item');
     
     searchableElements.forEach(element => {
         const text = element.textContent.toLowerCase();
