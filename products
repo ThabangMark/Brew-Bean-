@@ -1,0 +1,432 @@
+import Link from "next/link"
+import Image from "next/image"
+
+export default function ProductsPage() {
+  return (
+    <div className="min-h-screen">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex-shrink-0">
+              <Link href="/" className="text-2xl font-bold text-amber-800">
+                Brew & Bean
+              </Link>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                <Link
+                  href="/"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/products"
+                  className="text-gray-900 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Products
+                </Link>
+                <Link
+                  href="/menu"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Menu
+                </Link>
+                <Link
+                  href="/services"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Services
+                </Link>
+                <Link
+                  href="/blog"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 bg-gradient-to-br from-amber-50 to-orange-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">Our Coffee Collection</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Discover our signature blends and single origins from around the world
+          </p>
+        </div>
+      </section>
+
+      {/* Filter Section */}
+      <section className="py-8 bg-white border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap gap-4 justify-center">
+            <button className="px-6 py-2 bg-amber-600 text-white rounded-full font-medium">All</button>
+            <button className="px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors">
+              Single Origin
+            </button>
+            <button className="px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors">
+              Blends
+            </button>
+            <button className="px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors">
+              Light Roast
+            </button>
+            <button className="px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors">
+              Medium Roast
+            </button>
+            <button className="px-6 py-2 bg-gray-200 text-gray-700 rounded-full font-medium hover:bg-gray-300 transition-colors">
+              Dark Roast
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Grid */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {/* Product 1 */}
+            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=300&width=400"
+                alt="Ethiopian Yirgacheffe"
+                width={400}
+                height={300}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Ethiopian Yirgacheffe</h3>
+                  <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Single Origin</span>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Bright, floral notes with hints of citrus and wine. A truly exceptional coffee experience.
+                </p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="bg-amber-100 text-amber-800 text-sm px-3 py-1 rounded-full">Light Roast</span>
+                  <span className="text-2xl font-bold text-amber-600">$24.99</span>
+                </div>
+                <button className="w-full bg-amber-600 text-white py-2 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            {/* Product 2 */}
+            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=300&width=400"
+                alt="Colombian Supremo"
+                width={400}
+                height={300}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Colombian Supremo</h3>
+                  <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Single Origin</span>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Rich, full-bodied with chocolate undertones and a smooth, clean finish.
+                </p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full">Medium Roast</span>
+                  <span className="text-2xl font-bold text-amber-600">$22.99</span>
+                </div>
+                <button className="w-full bg-amber-600 text-white py-2 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            {/* Product 3 */}
+            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=300&width=400"
+                alt="House Blend"
+                width={400}
+                height={300}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900">House Blend</h3>
+                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Signature Blend</span>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Our signature blend combining beans from three continents for perfect balance.
+                </p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="bg-red-100 text-red-800 text-sm px-3 py-1 rounded-full">Medium-Dark</span>
+                  <span className="text-2xl font-bold text-amber-600">$19.99</span>
+                </div>
+                <button className="w-full bg-amber-600 text-white py-2 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            {/* Product 4 */}
+            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=300&width=400"
+                alt="French Roast"
+                width={400}
+                height={300}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900">French Roast</h3>
+                  <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">Dark Roast</span>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Bold, smoky flavor with low acidity. Perfect for those who love strong coffee.
+                </p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">Dark Roast</span>
+                  <span className="text-2xl font-bold text-amber-600">$21.99</span>
+                </div>
+                <button className="w-full bg-amber-600 text-white py-2 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            {/* Product 5 */}
+            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=300&width=400"
+                alt="Guatemala Antigua"
+                width={400}
+                height={300}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Guatemala Antigua</h3>
+                  <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Single Origin</span>
+                </div>
+                <p className="text-gray-600 mb-4">Complex flavor with spicy and smoky notes, grown in volcanic soil.</p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full">Medium Roast</span>
+                  <span className="text-2xl font-bold text-amber-600">$26.99</span>
+                </div>
+                <button className="w-full bg-amber-600 text-white py-2 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            {/* Product 6 */}
+            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=300&width=400"
+                alt="Brazilian Santos"
+                width={400}
+                height={300}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Brazilian Santos</h3>
+                  <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Single Origin</span>
+                </div>
+                <p className="text-gray-600 mb-4">
+                  Smooth and mild with nutty undertones, perfect for everyday drinking.
+                </p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full">Medium Roast</span>
+                  <span className="text-2xl font-bold text-amber-600">$20.99</span>
+                </div>
+                <button className="w-full bg-amber-600 text-white py-2 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            {/* Product 7 */}
+            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=300&width=400"
+                alt="Decaf Blend"
+                width={400}
+                height={300}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Decaf Blend</h3>
+                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Decaffeinated</span>
+                </div>
+                <p className="text-gray-600 mb-4">Full flavor without the caffeine, using Swiss water process.</p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full">Medium Roast</span>
+                  <span className="text-2xl font-bold text-amber-600">$23.99</span>
+                </div>
+                <button className="w-full bg-amber-600 text-white py-2 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+
+            {/* Product 8 */}
+            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=300&width=400"
+                alt="Espresso Blend"
+                width={400}
+                height={300}
+                className="w-full h-64 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900">Espresso Blend</h3>
+                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Signature Blend</span>
+                </div>
+                <p className="text-gray-600 mb-4">Specially crafted for espresso with rich crema and intense flavor.</p>
+                <div className="flex justify-between items-center mb-4">
+                  <span className="bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">Dark Roast</span>
+                  <span className="text-2xl font-bold text-amber-600">$25.99</span>
+                </div>
+                <button className="w-full bg-amber-600 text-white py-2 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Coffee Equipment Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Coffee Equipment</h2>
+            <p className="text-xl text-gray-600">Everything you need to brew the perfect cup at home</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              <Image
+                src="/placeholder.svg?height=200&width=300"
+                alt="French Press"
+                width={300}
+                height={200}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
+              <h3 className="text-xl font-semibold mb-2">French Press</h3>
+              <p className="text-gray-600 mb-4">Classic brewing method for full-bodied coffee</p>
+              <span className="text-2xl font-bold text-amber-600">$39.99</span>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              <Image
+                src="/placeholder.svg?height=200&width=300"
+                alt="Pour Over Set"
+                width={300}
+                height={200}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
+              <h3 className="text-xl font-semibold mb-2">Pour Over Set</h3>
+              <p className="text-gray-600 mb-4">Precision brewing for coffee enthusiasts</p>
+              <span className="text-2xl font-bold text-amber-600">$59.99</span>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-lg">
+              <Image
+                src="/placeholder.svg?height=200&width=300"
+                alt="Coffee Grinder"
+                width={300}
+                height={200}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
+              <h3 className="text-xl font-semibold mb-2">Burr Grinder</h3>
+              <p className="text-gray-600 mb-4">Consistent grind for optimal extraction</p>
+              <span className="text-2xl font-bold text-amber-600">$149.99</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Brew & Bean</h3>
+              <p className="text-gray-400">
+                Crafting the perfect cup since 1995. Experience the finest coffee beans from around the world.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="text-gray-400 hover:text-white transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/products" className="text-gray-400 hover:text-white transition-colors">
+                    Products
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/menu" className="text-gray-400 hover:text-white transition-colors">
+                    Menu
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+              <p className="text-gray-400">
+                123 Coffee Street
+                <br />
+                Downtown District
+                <br />
+                City, State 12345
+              </p>
+              <p className="text-gray-400 mt-2">Phone: (555) 123-4567</p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
+              <p className="text-gray-400 mb-4">Subscribe for coffee tips and special offers</p>
+              <form className="flex">
+                <input type="email" placeholder="Your email" className="flex-1 px-4 py-2 rounded-l-lg text-gray-900" />
+                <button
+                  type="submit"
+                  className="bg-amber-600 px-4 py-2 rounded-r-lg hover:bg-amber-700 transition-colors"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p className="text-gray-400">&copy; 2024 Brew & Bean. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
