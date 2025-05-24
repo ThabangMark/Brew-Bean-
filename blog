@@ -1,0 +1,406 @@
+import Link from "next/link"
+import Image from "next/image"
+
+export default function BlogPage() {
+  return (
+    <div className="min-h-screen">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex-shrink-0">
+              <Link href="/" className="text-2xl font-bold text-amber-800">
+                Brew & Bean
+              </Link>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                <Link
+                  href="/"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/products"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Products
+                </Link>
+                <Link
+                  href="/menu"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Menu
+                </Link>
+                <Link
+                  href="/services"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Services
+                </Link>
+                <Link
+                  href="/blog"
+                  className="text-gray-900 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 bg-gradient-to-br from-amber-50 to-orange-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">Coffee Blog</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Discover the latest coffee trends, brewing tips, and stories from the world of coffee
+          </p>
+        </div>
+      </section>
+
+      {/* Featured Article */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-16">
+            <span className="bg-amber-100 text-amber-800 text-sm font-semibold px-3 py-1 rounded-full">
+              Featured Article
+            </span>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <Image
+                src="/placeholder.svg?height=400&width=600"
+                alt="The Art of Pour Over Coffee"
+                width={600}
+                height={400}
+                className="rounded-xl shadow-lg"
+              />
+            </div>
+            <div className="space-y-6">
+              <h2 className="text-4xl font-bold text-gray-900">The Art of Pour Over Coffee: A Complete Guide</h2>
+              <p className="text-lg text-gray-600 leading-relaxed">
+                Discover the secrets behind the perfect pour over coffee. From choosing the right beans to mastering the
+                pouring technique, this comprehensive guide will elevate your home brewing game.
+              </p>
+              <div className="flex items-center space-x-4 text-sm text-gray-500">
+                <span>By Maria Rodriguez</span>
+                <span>•</span>
+                <span>December 15, 2024</span>
+                <span>•</span>
+                <span>8 min read</span>
+              </div>
+              <Link
+                href="#"
+                className="inline-block bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors"
+              >
+                Read Full Article
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Grid */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Latest Articles</h2>
+            <p className="text-xl text-gray-600">Stay updated with our latest coffee insights</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Article 1 */}
+            <article className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=250&width=400"
+                alt="Coffee bean origins"
+                width={400}
+                height={250}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  <span className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    Coffee Origins
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <Link href="#" className="hover:text-amber-600 transition-colors">
+                    Exploring Ethiopian Coffee: The Birthplace of Coffee
+                  </Link>
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Journey to the highlands of Ethiopia and discover the rich history and unique flavors of the world's
+                  first coffee beans.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>James Chen</span>
+                  <span>Dec 10, 2024</span>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 2 */}
+            <article className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=250&width=400"
+                alt="Latte art techniques"
+                width={400}
+                height={250}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    Barista Skills
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <Link href="#" className="hover:text-amber-600 transition-colors">
+                    5 Latte Art Patterns Every Barista Should Master
+                  </Link>
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  From basic hearts to intricate rosettas, learn the fundamental latte art patterns that will impress
+                  your customers.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>Sarah Johnson</span>
+                  <span>Dec 8, 2024</span>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 3 */}
+            <article className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=250&width=400"
+                alt="Coffee brewing methods"
+                width={400}
+                height={250}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  <span className="bg-purple-100 text-purple-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    Brewing Guide
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <Link href="#" className="hover:text-amber-600 transition-colors">
+                    French Press vs Pour Over: Which Method is Right for You?
+                  </Link>
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Compare two popular brewing methods and discover which one suits your taste preferences and lifestyle.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>Maria Rodriguez</span>
+                  <span>Dec 5, 2024</span>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 4 */}
+            <article className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=250&width=400"
+                alt="Coffee storage tips"
+                width={400}
+                height={250}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  <span className="bg-orange-100 text-orange-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    Tips & Tricks
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <Link href="#" className="hover:text-amber-600 transition-colors">
+                    How to Store Coffee Beans for Maximum Freshness
+                  </Link>
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Learn the best practices for storing your coffee beans to maintain their flavor and aroma for weeks.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>James Chen</span>
+                  <span>Dec 3, 2024</span>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 5 */}
+            <article className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=250&width=400"
+                alt="Sustainable coffee farming"
+                width={400}
+                height={250}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  <span className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    Sustainability
+                  </span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <Link href="#" className="hover:text-amber-600 transition-colors">
+                    The Future of Sustainable Coffee Farming
+                  </Link>
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Explore how coffee farmers are adapting to climate change and implementing sustainable practices.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>Sarah Johnson</span>
+                  <span>Nov 30, 2024</span>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 6 */}
+            <article className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+              <Image
+                src="/placeholder.svg?height=250&width=400"
+                alt="Coffee and health"
+                width={400}
+                height={250}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="flex items-center mb-3">
+                  <span className="bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full">Health</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  <Link href="#" className="hover:text-amber-600 transition-colors">
+                    The Health Benefits of Drinking Coffee Daily
+                  </Link>
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Discover the science-backed health benefits of moderate coffee consumption and how it can improve your
+                  well-being.
+                </p>
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  <span>Maria Rodriguez</span>
+                  <span>Nov 28, 2024</span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          {/* Load More Button */}
+          <div className="text-center mt-12">
+            <button className="bg-gray-900 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+              Load More Articles
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Signup */}
+      <section className="py-20 bg-amber-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Stay Updated</h2>
+          <p className="text-xl text-gray-600 mb-8">Subscribe to our newsletter and never miss a coffee story</p>
+          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-6 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-600"
+            />
+            <button
+              type="submit"
+              className="bg-amber-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Brew & Bean</h3>
+              <p className="text-gray-400">
+                Crafting the perfect cup since 1995. Experience the finest coffee beans from around the world.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="text-gray-400 hover:text-white transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/products" className="text-gray-400 hover:text-white transition-colors">
+                    Products
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/menu" className="text-gray-400 hover:text-white transition-colors">
+                    Menu
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+              <p className="text-gray-400">
+                123 Coffee Street
+                <br />
+                Downtown District
+                <br />
+                City, State 12345
+              </p>
+              <p className="text-gray-400 mt-2">Phone: (555) 123-4567</p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
+              <p className="text-gray-400 mb-4">Subscribe for coffee tips and special offers</p>
+              <form className="flex">
+                <input type="email" placeholder="Your email" className="flex-1 px-4 py-2 rounded-l-lg text-gray-900" />
+                <button
+                  type="submit"
+                  className="bg-amber-600 px-4 py-2 rounded-r-lg hover:bg-amber-700 transition-colors"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p className="text-gray-400">&copy; 2024 Brew & Bean. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
