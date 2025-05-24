@@ -1,0 +1,318 @@
+import Link from "next/link"
+
+export default function MenuPage() {
+  return (
+    <div className="min-h-screen">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex-shrink-0">
+              <Link href="/" className="text-2xl font-bold text-amber-800">
+                Brew & Bean
+              </Link>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                <Link
+                  href="/"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/products"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Products
+                </Link>
+                <Link
+                  href="/menu"
+                  className="text-gray-900 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Menu
+                </Link>
+                <Link
+                  href="/services"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Services
+                </Link>
+                <Link
+                  href="/blog"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 bg-gradient-to-br from-amber-50 to-orange-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">Our Menu</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Handcrafted beverages and fresh pastries made with love
+          </p>
+        </div>
+      </section>
+
+      {/* Menu Content */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Hot Beverages */}
+            <div className="bg-gray-50 rounded-xl p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Hot Beverages</h2>
+              <div className="space-y-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Espresso</h3>
+                    <p className="text-gray-600">Rich, concentrated coffee shot</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$3.50</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Cappuccino</h3>
+                    <p className="text-gray-600">Espresso with steamed milk and foam</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$4.75</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Latte</h3>
+                    <p className="text-gray-600">Espresso with steamed milk</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$5.25</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Americano</h3>
+                    <p className="text-gray-600">Espresso with hot water</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$4.00</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Mocha</h3>
+                    <p className="text-gray-600">Espresso with chocolate and steamed milk</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$5.75</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Macchiato</h3>
+                    <p className="text-gray-600">Espresso with a dollop of foam</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$4.25</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Cold Beverages */}
+            <div className="bg-gray-50 rounded-xl p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Cold Beverages</h2>
+              <div className="space-y-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Iced Coffee</h3>
+                    <p className="text-gray-600">Cold brew over ice</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$4.25</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Frappé</h3>
+                    <p className="text-gray-600">Blended iced coffee drink</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$5.75</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Cold Brew</h3>
+                    <p className="text-gray-600">Smooth, less acidic cold extraction</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$4.50</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Iced Latte</h3>
+                    <p className="text-gray-600">Espresso with cold milk over ice</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$5.50</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Nitro Cold Brew</h3>
+                    <p className="text-gray-600">Cold brew infused with nitrogen</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$5.25</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Iced Mocha</h3>
+                    <p className="text-gray-600">Iced espresso with chocolate</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$6.00</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Pastries & Snacks */}
+            <div className="bg-gray-50 rounded-xl p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Pastries & Snacks</h2>
+              <div className="space-y-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Croissant</h3>
+                    <p className="text-gray-600">Buttery, flaky French pastry</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$3.25</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Blueberry Muffin</h3>
+                    <p className="text-gray-600">Fresh baked with wild blueberries</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$3.75</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Avocado Toast</h3>
+                    <p className="text-gray-600">Multigrain bread with fresh avocado</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$7.50</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Chocolate Chip Cookie</h3>
+                    <p className="text-gray-600">Homemade with premium chocolate</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$2.75</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Bagel with Cream Cheese</h3>
+                    <p className="text-gray-600">Fresh bagel with artisan cream cheese</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$4.50</span>
+                </div>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Danish Pastry</h3>
+                    <p className="text-gray-600">Flaky pastry with seasonal fruit</p>
+                  </div>
+                  <span className="text-lg font-bold text-amber-600">$4.25</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Special Offers */}
+      <section className="py-20 bg-amber-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Special Offers</h2>
+            <p className="text-xl text-gray-600">Limited time deals you don't want to miss</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <h3 className="text-2xl font-bold text-amber-600 mb-4">Happy Hour</h3>
+              <p className="text-gray-700 mb-4">Get 20% off all beverages between 2-4 PM, Monday through Friday.</p>
+              <p className="text-sm text-gray-500">Valid until end of month</p>
+            </div>
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <h3 className="text-2xl font-bold text-amber-600 mb-4">Coffee & Pastry Combo</h3>
+              <p className="text-gray-700 mb-4">Any hot beverage + pastry for just $8.99. Save up to $3!</p>
+              <p className="text-sm text-gray-500">Available all day</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Brew & Bean</h3>
+              <p className="text-gray-400">
+                Crafting the perfect cup since 1995. Experience the finest coffee beans from around the world.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="text-gray-400 hover:text-white transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/products" className="text-gray-400 hover:text-white transition-colors">
+                    Products
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/menu" className="text-gray-400 hover:text-white transition-colors">
+                    Menu
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+              <p className="text-gray-400">
+                123 Coffee Street
+                <br />
+                Downtown District
+                <br />
+                City, State 12345
+              </p>
+              <p className="text-gray-400 mt-2">Phone: (555) 123-4567</p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
+              <p className="text-gray-400 mb-4">Subscribe for coffee tips and special offers</p>
+              <form className="flex">
+                <input type="email" placeholder="Your email" className="flex-1 px-4 py-2 rounded-l-lg text-gray-900" />
+                <button
+                  type="submit"
+                  className="bg-amber-600 px-4 py-2 rounded-r-lg hover:bg-amber-700 transition-colors"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p className="text-gray-400">&copy; 2024 Brew & Bean. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
