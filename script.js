@@ -1,306 +1,412 @@
-// Brew & Bean - Interactive JavaScript
+// Global Variables
+let cart = JSON.parse(localStorage.getItem('brewBeanCart')) || [];
+let isCartOpen = false;
 
-// DOM Elements
-const navbar = document.getElementById('navbar');
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('nav-menu');
-const contactForm = document.getElementById('contact-form');
-const newsletterForm = document.querySelector('.newsletter-form');
-const ctaButton = document.querySelector('.cta-button');
+// DOM Content Loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeNavigation();
+    initializeCart();
+    initializeForms();
+    initializeScrollEffects();
+    initializeAnimations();
+    updateCartDisplay();
+});
 
-// Mobile Navigation Toggle
-function toggleMobileMenu() {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-    document.body.classList.toggle('menu-open');
-}
-
-// Smooth Scrolling Function
-function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-        const offsetTop = section.offsetTop - 80; // Account for fixed navbar
-        window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
+// Navigation Functions
+function initializeNavigation() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const navbar = document.getElementById('navbar');
+    
+    // Mobile menu toggle
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
         });
     }
     
-    // Close mobile menu if open
-    if (navMenu.classList.contains('active')) {
-        toggleMobileMenu();
+    // Navbar scroll effect
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
     }
 }
 
-// Navbar Scroll Effect
-function handleNavbarScroll() {
-    if (window.scrollY > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-}
-
-// Active Navigation Link Highlighting
-function updateActiveNavLink() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
+// Cart Functions
+function initializeCart() {
+    const cartButton = document.querySelector('.cart-button');
+    const cartDropdown = document.getElementById('cart-dropdown');
     
-    let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 120;
-        const sectionHeight = section.clientHeight;
+    if (cartButton && cartDropdown) {
+        cartButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleCart();
+        });
         
-        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-            current = section.getAttribute('id');
-        }
-    });
+        // Close cart when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!cartDropdown.contains(event.target) && !cartButton.contains(event.target)) {
+                closeCart();
+            }
+        });
+    }
     
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
+    // Add event listeners for add to cart buttons
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const productCard = this.closest('.coffee-card') || this.closest('.product-card');
+            if (productCard) {
+                const product = extractProductInfo(productCard);
+                addToCart(product);
+            }
+        });
     });
 }
 
-// Contact Form Handling
+function toggleCart() {
+    const cartDropdown = document.getElementById('cart-dropdown');
+    if (cartDropdown) {
+        isCartOpen = !isCartOpen;
+        cartDropdown.classList.toggle('show', isCartOpen);
+    }
+}
+
+function closeCart() {
+    const cartDropdown = document.getElementById('cart-dropdown');
+    if (cartDropdown) {
+        isCartOpen = false;
+        cartDropdown.classList.remove('show');
+    }
+}
+
+function extractProductInfo(productCard) {
+    const name = productCard.querySelector('h3')?.textContent || 'Unknown Product';
+    const priceElement = productCard.querySelector('.price');
+    const price = priceElement ? parseFloat(priceElement.textContent.replace('$', '')) : 0;
+    const image = productCard.querySelector('img')?.src || '/placeholder.svg?height=100&width=100';
+    
+    return {
+        id: Date.now() + Math.random(), // Simple ID generation
+        name: name,
+        price: price,
+        image: image,
+        quantity: 1
+    };
+}
+
+function addToCart(product) {
+    const existingItem = cart.find(item => item.name === product.name);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push(product);
+    }
+    
+    saveCart();
+    updateCartDisplay();
+    showCartNotification(`${product.name} added to cart!`);
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    saveCart();
+    updateCartDisplay();
+}
+
+function updateCartQuantity(productId, newQuantity) {
+    const item = cart.find(item => item.id === productId);
+    if (item) {
+        if (newQuantity <= 0) {
+            removeFromCart(productId);
+        } else {
+            item.quantity = newQuantity;
+            saveCart();
+            updateCartDisplay();
+        }
+    }
+}
+
+function clearCart() {
+    cart = [];
+    saveCart();
+    updateCartDisplay();
+    showCartNotification('Cart cleared!');
+}
+
+function updateCartDisplay() {
+    const cartCount = document.getElementById('cart-count');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const cartFooter = document.getElementById('cart-footer');
+    
+    // Update cart count
+    if (cartCount) {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCount.textContent = totalItems;
+        cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+    
+    // Update cart items
+    if (cartItems) {
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+            if (cartFooter) cartFooter.style.display = 'none';
+        } else {
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>Qty: ${item.quantity}</p>
+                    </div>
+                    <div class="cart-item-controls">
+                        <span class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+                        <button onclick="removeFromCart(${item.id})" class="remove-item" title="Remove item">×</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            if (cartFooter) cartFooter.style.display = 'block';
+        }
+    }
+    
+    // Update cart total
+    if (cartTotal) {
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartTotal.textContent = total.toFixed(2);
+    }
+}
+
+function saveCart() {
+    localStorage.setItem('brewBeanCart', JSON.stringify(cart));
+}
+
+function showCartNotification(message) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'cart-notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: #8B4513;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 3000);
+}
+
+// Form Functions
+function initializeForms() {
+    // Contact form
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', handleContactForm);
+    }
+    
+    // Newsletter forms
+    const newsletterForms = document.querySelectorAll('.newsletter-form, .newsletter-form-large');
+    newsletterForms.forEach(form => {
+        form.addEventListener('submit', handleNewsletterForm);
+    });
+    
+    // Add real-time validation
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        input.addEventListener('blur', validateField);
+        input.addEventListener('input', clearFieldError);
+    });
+}
+
 function handleContactForm(e) {
     e.preventDefault();
     
-    const formData = new FormData(contactForm);
-    const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        subject: formData.get('subject'),
-        message: formData.get('message')
-    };
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    
+    // Basic validation
+    if (!validateContactForm(data)) {
+        return;
+    }
     
     // Show loading state
-    const submitButton = contactForm.querySelector('.submit-button');
+    const submitButton = e.target.querySelector('button[type="submit"]');
     const originalText = submitButton.textContent;
     submitButton.textContent = 'Sending...';
     submitButton.disabled = true;
     
     // Simulate form submission (replace with actual API call)
     setTimeout(() => {
-        // Reset form
-        contactForm.reset();
-        
-        // Show success message
-        showNotification('Thank you! Your message has been sent successfully.', 'success');
-        
-        // Reset button
+        showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
+        e.target.reset();
         submitButton.textContent = originalText;
         submitButton.disabled = false;
     }, 2000);
 }
 
-// Newsletter Form Handling
 function handleNewsletterForm(e) {
     e.preventDefault();
     
-    const emailInput = newsletterForm.querySelector('input[type="email"]');
-    const email = emailInput.value;
+    const email = e.target.querySelector('input[type="email"]').value;
     
-    if (email) {
-        // Show loading state
-        const submitButton = newsletterForm.querySelector('button');
-        const originalText = submitButton.textContent;
-        submitButton.textContent = 'Subscribing...';
-        submitButton.disabled = true;
-        
-        // Simulate subscription (replace with actual API call)
-        setTimeout(() => {
-            emailInput.value = '';
-            showNotification('Successfully subscribed to our newsletter!', 'success');
-            
-            // Reset button
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-        }, 1500);
-    }
-}
-
-// Notification System
-function showNotification(message, type = 'info') {
-    // Remove existing notifications
-    const existingNotification = document.querySelector('.notification');
-    if (existingNotification) {
-        existingNotification.remove();
+    if (!validateEmail(email)) {
+        showNotification('Please enter a valid email address.', 'error');
+        return;
     }
     
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-message">${message}</span>
-            <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-        </div>
-    `;
+    // Show loading state
+    const submitButton = e.target.querySelector('button[type="submit"]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Subscribing...';
+    submitButton.disabled = true;
     
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
-        color: white;
-        padding: 16px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        z-index: 1000;
-        max-width: 400px;
-        animation: slideIn 0.3s ease-out;
-    `;
-    
-    // Add animation styles
-    if (!document.querySelector('#notification-styles')) {
-        const style = document.createElement('style');
-        style.id = 'notification-styles';
-        style.textContent = `
-            @keyframes slideIn {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
-            .notification-content {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 12px;
-            }
-            .notification-close {
-                background: none;
-                border: none;
-                color: white;
-                font-size: 20px;
-                cursor: pointer;
-                padding: 0;
-                width: 24px;
-                height: 24px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .notification-close:hover {
-                opacity: 0.8;
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    document.body.appendChild(notification);
-    
-    // Auto remove after 5 seconds
+    // Simulate subscription (replace with actual API call)
     setTimeout(() => {
-        if (notification.parentElement) {
-            notification.remove();
-        }
-    }, 5000);
+        showNotification('Successfully subscribed to our newsletter!', 'success');
+        e.target.reset();
+        submitButton.textContent = originalText;
+        submitButton.disabled = false;
+    }, 1500);
 }
 
-// Gallery Image Modal
-function createImageModal() {
-    const galleryItems = document.querySelectorAll('.gallery-item');
+function validateContactForm(data) {
+    let isValid = true;
     
-    galleryItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const img = item.querySelector('img');
-            const title = item.querySelector('h4').textContent;
+    // Required fields
+    const requiredFields = ['name', 'email', 'subject', 'message'];
+    requiredFields.forEach(field => {
+        if (!data[field] || data[field].trim() === '') {
+            showFieldError(field, 'This field is required');
+            isValid = false;
+        }
+    });
+    
+    // Email validation
+    if (data.email && !validateEmail(data.email)) {
+        showFieldError('email', 'Please enter a valid email address');
+        isValid = false;
+    }
+    
+    return isValid;
+}
+
+function validateField(e) {
+    const field = e.target;
+    const value = field.value.trim();
+    
+    // Clear previous errors
+    clearFieldError(e);
+    
+    // Required field validation
+    if (field.hasAttribute('required') && !value) {
+        showFieldError(field.name, 'This field is required');
+        return false;
+    }
+    
+    // Email validation
+    if (field.type === 'email' && value && !validateEmail(value)) {
+        showFieldError(field.name, 'Please enter a valid email address');
+        return false;
+    }
+    
+    return true;
+}
+
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+function showFieldError(fieldName, message) {
+    const field = document.querySelector(`[name="${fieldName}"]`);
+    if (field) {
+        field.style.borderColor = '#e74c3c';
+        
+        // Remove existing error message
+        const existingError = field.parentNode.querySelector('.field-error');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Add error message
+        const errorElement = document.createElement('span');
+        errorElement.className = 'field-error';
+        errorElement.textContent = message;
+        errorElement.style.cssText = 'color: #e74c3c; font-size: 0.8rem; margin-top: 0.25rem; display: block;';
+        field.parentNode.appendChild(errorElement);
+    }
+}
+
+function clearFieldError(e) {
+    const field = e.target;
+    field.style.borderColor = '';
+    
+    const errorElement = field.parentNode.querySelector('.field-error');
+    if (errorElement) {
+        errorElement.remove();
+    }
+}
+
+// Scroll Effects
+function initializeScrollEffects() {
+    // Smooth scrolling for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
             
-            // Create modal
-            const modal = document.createElement('div');
-            modal.className = 'image-modal';
-            modal.innerHTML = `
-                <div class="modal-backdrop" onclick="this.parentElement.remove()">
-                    <div class="modal-content" onclick="event.stopPropagation()">
-                        <img src="${img.src}" alt="${img.alt}">
-                        <h3>${title}</h3>
-                        <button class="modal-close" onclick="this.closest('.image-modal').remove()">×</button>
-                    </div>
-                </div>
-            `;
-            
-            // Add modal styles
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 2000;
-            `;
-            
-            // Add modal CSS if not exists
-            if (!document.querySelector('#modal-styles')) {
-                const style = document.createElement('style');
-                style.id = 'modal-styles';
-                style.textContent = `
-                    .modal-backdrop {
-                        width: 100%;
-                        height: 100%;
-                        background: rgba(0, 0, 0, 0.8);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        padding: 20px;
-                    }
-                    .modal-content {
-                        background: white;
-                        border-radius: 12px;
-                        padding: 20px;
-                        max-width: 90vw;
-                        max-height: 90vh;
-                        position: relative;
-                        text-align: center;
-                    }
-                    .modal-content img {
-                        max-width: 100%;
-                        max-height: 70vh;
-                        object-fit: contain;
-                        border-radius: 8px;
-                    }
-                    .modal-content h3 {
-                        margin: 16px 0 0 0;
-                        color: #333;
-                    }
-                    .modal-close {
-                        position: absolute;
-                        top: 10px;
-                        right: 15px;
-                        background: none;
-                        border: none;
-                        font-size: 24px;
-                        cursor: pointer;
-                        color: #666;
-                        width: 30px;
-                        height: 30px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                    .modal-close:hover {
-                        color: #333;
-                    }
-                `;
-                document.head.appendChild(style);
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop - 100; // Account for fixed navbar
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
             }
-            
-            document.body.appendChild(modal);
         });
     });
-}
-
-// Scroll Animations
-function initScrollAnimations() {
+    
+    // Intersection Observer for animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -309,285 +415,176 @@ function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
+                entry.target.classList.add('fade-in-up');
             }
         });
     }, observerOptions);
     
     // Observe elements for animation
-    const animateElements = document.querySelectorAll('.coffee-card, .menu-category, .gallery-item, .stat');
-    animateElements.forEach(el => {
-        observer.observe(el);
-    });
-    
-    // Add animation styles
-    if (!document.querySelector('#scroll-animation-styles')) {
-        const style = document.createElement('style');
-        style.id = 'scroll-animation-styles';
-        style.textContent = `
-            .coffee-card, .menu-category, .gallery-item, .stat {
-                opacity: 0;
-                transform: translateY(30px);
-                transition: opacity 0.6s ease, transform 0.6s ease;
-            }
-            .coffee-card.animate-in, .menu-category.animate-in, .gallery-item.animate-in, .stat.animate-in {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            .coffee-card {
-                transition-delay: 0.1s;
-            }
-            .coffee-card:nth-child(2) {
-                transition-delay: 0.2s;
-            }
-            .coffee-card:nth-child(3) {
-                transition-delay: 0.3s;
-            }
-            .coffee-card:nth-child(4) {
-                transition-delay: 0.4s;
-            }
-        `;
-        document.head.appendChild(style);
-    }
+    const animateElements = document.querySelectorAll('.coffee-card, .blog-card, .service-card, .contact-item');
+    animateElements.forEach(el => observer.observe(el));
 }
 
-// Stats Counter Animation
-function animateStats() {
-    const stats = document.querySelectorAll('.stat h4');
-    
-    stats.forEach(stat => {
-        const target = parseInt(stat.textContent.replace(/\D/g, ''));
-        const suffix = stat.textContent.replace(/\d/g, '');
-        let current = 0;
-        const increment = target / 50;
+// Animations
+function initializeAnimations() {
+    // Add CSS for animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
         
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        .cart-notification {
+            animation: slideInRight 0.3s ease-out;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Utility Functions
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    const bgColor = type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#8B4513';
+    
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: ${bgColor};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 5px;
+        z-index: 10000;
+        animation: slideInRight 0.3s ease-out;
+        max-width: 300px;
+        word-wrap: break-word;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-out';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
             }
-            stat.textContent = Math.floor(current) + suffix;
-        }, 40);
+        }, 300);
+    }, 4000);
+}
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Search functionality (if needed)
+function initializeSearch() {
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        const debouncedSearch = debounce(performSearch, 300);
+        searchInput.addEventListener('input', debouncedSearch);
+    }
+}
+
+function performSearch(e) {
+    const query = e.target.value.toLowerCase().trim();
+    const searchableElements = document.querySelectorAll('.coffee-card, .blog-card, .service-card');
+    
+    searchableElements.forEach(element => {
+        const text = element.textContent.toLowerCase();
+        const isMatch = text.includes(query);
+        element.style.display = isMatch || query === '' ? 'block' : 'none';
     });
 }
 
-// Initialize stats animation when in view
-function initStatsAnimation() {
-    const statsSection = document.querySelector('.stats');
-    if (statsSection) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateStats();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        observer.observe(statsSection);
-    }
-}
-
-// Add CSS for mobile menu and navbar effects
-function addDynamicStyles() {
-    if (!document.querySelector('#dynamic-styles')) {
-        const style = document.createElement('style');
-        style.id = 'dynamic-styles';
-        style.textContent = `
-            /* Mobile Menu Styles */
-            .hamburger {
-                display: none;
-                flex-direction: column;
-                cursor: pointer;
-                padding: 4px;
-            }
+// Blog pagination (if needed)
+function initializePagination() {
+    const paginationButtons = document.querySelectorAll('.pagination-btn');
+    paginationButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            paginationButtons.forEach(btn => btn.classList.remove('active'));
             
-            .hamburger .bar {
-                width: 25px;
-                height: 3px;
-                background-color: #333;
-                margin: 3px 0;
-                transition: 0.3s;
-            }
+            // Add active class to clicked button
+            this.classList.add('active');
             
-            .hamburger.active .bar:nth-child(1) {
-                transform: rotate(-45deg) translate(-5px, 6px);
-            }
-            
-            .hamburger.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-            
-            .hamburger.active .bar:nth-child(3) {
-                transform: rotate(45deg) translate(-5px, -6px);
-            }
-            
-            /* Navbar Scroll Effect */
-            .navbar.scrolled {
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            }
-            
-            /* Active Nav Link */
-            .nav-link.active {
-                color: #8B4513;
-                font-weight: 600;
-            }
-            
-            /* Mobile Responsive */
-            @media (max-width: 768px) {
-                .hamburger {
-                    display: flex;
-                }
-                
-                .nav-menu {
-                    position: fixed;
-                    left: -100%;
-                    top: 70px;
-                    flex-direction: column;
-                    background-color: white;
-                    width: 100%;
-                    text-align: center;
-                    transition: 0.3s;
-                    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-                    z-index: 1000;
-                }
-                
-                .nav-menu.active {
-                    left: 0;
-                }
-                
-                .nav-menu li {
-                    margin: 15px 0;
-                }
-                
-                .nav-link {
-                    font-size: 18px;
-                    padding: 10px 0;
-                    display: block;
-                }
-                
-                body.menu-open {
-                    overflow: hidden;
-                }
-            }
-            
-            /* Smooth transitions */
-            * {
-                scroll-behavior: smooth;
-            }
-        `;
-        document.head.appendChild(style);
-    }
-}
-
-// Event Listeners
-document.addEventListener('DOMContentLoaded', function() {
-    // Add dynamic styles
-    addDynamicStyles();
-    
-    // Mobile menu toggle
-    if (hamburger) {
-        hamburger.addEventListener('click', toggleMobileMenu);
-    }
-    
-    // Navigation links smooth scrolling
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            scrollToSection(targetId);
+            // Here you would typically load new content
+            // For now, we'll just scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
-    
-    // Footer links smooth scrolling
-    document.querySelectorAll('footer a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            scrollToSection(targetId);
-        });
-    });
-    
-    // Contact form submission
-    if (contactForm) {
-        contactForm.addEventListener('submit', handleContactForm);
-    }
-    
-    // Newsletter form submission
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', handleNewsletterForm);
-    }
-    
-    // Scroll events
-    window.addEventListener('scroll', function() {
-        handleNavbarScroll();
-        updateActiveNavLink();
-    });
-    
-    // Initialize features
-    createImageModal();
-    initScrollAnimations();
-    initStatsAnimation();
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-            if (navMenu.classList.contains('active')) {
-                toggleMobileMenu();
-            }
-        }
-    });
-    
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
-            toggleMobileMenu();
-        }
-    });
+}
+
+// Initialize pagination if on blog page
+if (window.location.pathname.includes('blog.html')) {
+    document.addEventListener('DOMContentLoaded', initializePagination);
+}
+
+// Error handling
+window.addEventListener('error', function(e) {
+    console.error('JavaScript error:', e.error);
+    // You could send this to an error tracking service
 });
 
-// Make scrollToSection globally available for inline onclick handlers
-window.scrollToSection = scrollToSection;
+// Performance monitoring
+window.addEventListener('load', function() {
+    // Log page load time
+    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+    console.log(`Page loaded in ${loadTime}ms`);
+});
 
-// Additional utility functions
-const BrewAndBean = {
-    // Utility to add items to a future shopping cart
-    addToCart: function(itemName, price) {
-        console.log(`Added ${itemName} ($${price}) to cart`);
-        showNotification(`${itemName} added to cart!`, 'success');
-    },
-    
-    // Utility to handle coffee card interactions
-    initCoffeeCards: function() {
-        document.querySelectorAll('.coffee-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const coffeeName = this.querySelector('h3').textContent;
-                const price = this.querySelector('.price').textContent;
-                console.log(`Clicked on ${coffeeName} - ${price}`);
-                // Could add to cart or show details modal
-            });
-        });
-    },
-    
-    // Utility for menu item interactions
-    initMenuItems: function() {
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const itemName = this.querySelector('h4').textContent;
-                const price = this.querySelector('.price').textContent;
-                BrewAndBean.addToCart(itemName, price);
-            });
-        });
+// Accessibility improvements
+document.addEventListener('keydown', function(e) {
+    // Close cart with Escape key
+    if (e.key === 'Escape' && isCartOpen) {
+        closeCart();
     }
+    
+    // Close mobile menu with Escape key
+    if (e.key === 'Escape') {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        if (hamburger && navMenu && navMenu.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }
+    }
+});
+
+// Service Worker registration (for PWA capabilities)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful');
+            })
+            .catch(function(err) {
+                console.log('ServiceWorker registration failed');
+            });
+    });
+}
+
+// Export functions for testing or external use
+window.BrewBean = {
+    addToCart,
+    removeFromCart,
+    clearCart,
+    toggleCart,
+    showNotification
 };
-
-// Initialize additional features when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    BrewAndBean.initCoffeeCards();
-    BrewAndBean.initMenuItems();
-});
-
-console.log('Brew & Bean JavaScript loaded successfully! ☕');
