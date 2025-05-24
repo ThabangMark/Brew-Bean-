@@ -1,0 +1,437 @@
+import Link from "next/link"
+import Image from "next/image"
+
+export default function ServicesPage() {
+  return (
+    <div className="min-h-screen">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex-shrink-0">
+              <Link href="/" className="text-2xl font-bold text-amber-800">
+                Brew & Bean
+              </Link>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-4">
+                <Link
+                  href="/"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/products"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Products
+                </Link>
+                <Link
+                  href="/menu"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Menu
+                </Link>
+                <Link
+                  href="/services"
+                  className="text-gray-900 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Services
+                </Link>
+                <Link
+                  href="/blog"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="pt-24 pb-16 bg-gradient-to-br from-amber-50 to-orange-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">Our Services</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            From coffee catering to barista training, we offer comprehensive coffee services
+          </p>
+        </div>
+      </section>
+
+      {/* Services Grid */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Coffee Catering */}
+            <div className="bg-gray-50 rounded-xl p-8">
+              <Image
+                src="/placeholder.svg?height=300&width=500"
+                alt="Coffee catering service"
+                width={500}
+                height={300}
+                className="w-full h-64 object-cover rounded-lg mb-6"
+              />
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Coffee Catering</h2>
+              <p className="text-gray-600 mb-6">
+                Bring the Brew & Bean experience to your event. Our professional baristas will serve freshly brewed
+                coffee and espresso drinks at your office, wedding, or special occasion.
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Professional mobile espresso bar
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Certified baristas
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Premium coffee beans
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Custom menu options
+                </li>
+              </ul>
+              <button className="bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                Get Quote
+              </button>
+            </div>
+
+            {/* Barista Training */}
+            <div className="bg-gray-50 rounded-xl p-8">
+              <Image
+                src="/placeholder.svg?height=300&width=500"
+                alt="Barista training session"
+                width={500}
+                height={300}
+                className="w-full h-64 object-cover rounded-lg mb-6"
+              />
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Barista Training</h2>
+              <p className="text-gray-600 mb-6">
+                Learn from our expert baristas with hands-on training sessions. Perfect for coffee shop owners,
+                restaurant staff, or coffee enthusiasts looking to improve their skills.
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Espresso extraction techniques
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Milk steaming and latte art
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Coffee cupping and tasting
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Equipment maintenance
+                </li>
+              </ul>
+              <button className="bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                Book Training
+              </button>
+            </div>
+
+            {/* Coffee Subscription */}
+            <div className="bg-gray-50 rounded-xl p-8">
+              <Image
+                src="/placeholder.svg?height=300&width=500"
+                alt="Coffee subscription box"
+                width={500}
+                height={300}
+                className="w-full h-64 object-cover rounded-lg mb-6"
+              />
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Coffee Subscription</h2>
+              <p className="text-gray-600 mb-6">
+                Never run out of great coffee with our flexible subscription service. Choose from our curated selection
+                or let us surprise you with new discoveries each month.
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Monthly, bi-weekly, or weekly delivery
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Freshly roasted beans
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Flexible subscription management
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Free shipping on all orders
+                </li>
+              </ul>
+              <button className="bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                Start Subscription
+              </button>
+            </div>
+
+            {/* Corporate Services */}
+            <div className="bg-gray-50 rounded-xl p-8">
+              <Image
+                src="/placeholder.svg?height=300&width=500"
+                alt="Office coffee service"
+                width={500}
+                height={300}
+                className="w-full h-64 object-cover rounded-lg mb-6"
+              />
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Corporate Coffee Service</h2>
+              <p className="text-gray-600 mb-6">
+                Boost workplace productivity and morale with our corporate coffee service. We provide everything your
+                office needs for exceptional coffee experiences.
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Equipment installation and maintenance
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Regular coffee supply delivery
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  Staff training sessions
+                </li>
+                <li className="flex items-center text-gray-700">
+                  <span className="w-2 h-2 bg-amber-600 rounded-full mr-3"></span>
+                  24/7 technical support
+                </li>
+              </ul>
+              <button className="bg-amber-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                Contact Sales
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Service Packages</h2>
+            <p className="text-xl text-gray-600">Choose the perfect package for your needs</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Basic Package */}
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Basic</h3>
+              <div className="text-4xl font-bold text-amber-600 mb-6">
+                $299<span className="text-lg text-gray-500">/event</span>
+              </div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  Up to 50 guests
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  2-hour service
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  1 professional barista
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  Basic coffee menu
+                </li>
+              </ul>
+              <button className="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                Choose Basic
+              </button>
+            </div>
+
+            {/* Premium Package */}
+            <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-amber-600 relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span className="bg-amber-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                  Most Popular
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Premium</h3>
+              <div className="text-4xl font-bold text-amber-600 mb-6">
+                $599<span className="text-lg text-gray-500">/event</span>
+              </div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  Up to 150 guests
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  4-hour service
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  2 professional baristas
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  Full espresso menu
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  Latte art service
+                </li>
+              </ul>
+              <button className="w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors">
+                Choose Premium
+              </button>
+            </div>
+
+            {/* Enterprise Package */}
+            <div className="bg-white rounded-xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Enterprise</h3>
+              <div className="text-4xl font-bold text-amber-600 mb-6">
+                $999<span className="text-lg text-gray-500">/event</span>
+              </div>
+              <ul className="space-y-3 mb-8">
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  Unlimited guests
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  All-day service
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  3+ professional baristas
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  Custom menu creation
+                </li>
+                <li className="flex items-center">
+                  <span className="w-5 h-5 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs mr-3">
+                    ✓
+                  </span>
+                  Premium equipment setup
+                </li>
+              </ul>
+              <button className="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors">
+                Choose Enterprise
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 className="text-2xl font-bold mb-4">Brew & Bean</h3>
+              <p className="text-gray-400">
+                Crafting the perfect cup since 1995. Experience the finest coffee beans from around the world.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/" className="text-gray-400 hover:text-white transition-colors">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/products" className="text-gray-400 hover:text-white transition-colors">
+                    Products
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/menu" className="text-gray-400 hover:text-white transition-colors">
+                    Menu
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
+              <p className="text-gray-400">
+                123 Coffee Street
+                <br />
+                Downtown District
+                <br />
+                City, State 12345
+              </p>
+              <p className="text-gray-400 mt-2">Phone: (555) 123-4567</p>
+            </div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
+              <p className="text-gray-400 mb-4">Subscribe for coffee tips and special offers</p>
+              <form className="flex">
+                <input type="email" placeholder="Your email" className="flex-1 px-4 py-2 rounded-l-lg text-gray-900" />
+                <button
+                  type="submit"
+                  className="bg-amber-600 px-4 py-2 rounded-r-lg hover:bg-amber-700 transition-colors"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+            <p className="text-gray-400">&copy; 2024 Brew & Bean. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
