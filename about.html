@@ -1,278 +1,210 @@
-import Link from "next/link"
-import Image from "next/image"
-
-export default function AboutPage() {
-  return (
-    <div className="min-h-screen">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex-shrink-0">
-              <Link href="/" className="text-2xl font-bold text-amber-800">
-                Brew & Bean
-              </Link>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Brew & Bean</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><a href="index.html">Brew & Bean</a></h2>
             </div>
-            <div className="hidden md:block">
-              <div className="ml-10 flex items-baseline space-x-4">
-                <Link
-                  href="/"
-                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  Home
-                </Link>
-                <Link
-                  href="/about"
-                  className="text-gray-900 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  About
-                </Link>
-                <Link
-                  href="/products"
-                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  Products
-                </Link>
-                <Link
-                  href="/menu"
-                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  Menu
-                </Link>
-                <Link
-                  href="/services"
-                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  Services
-                </Link>
-                <Link
-                  href="/blog"
-                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  Blog
-                </Link>
-                <Link
-                  href="/contact"
-                  className="text-gray-700 hover:text-amber-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  Contact
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-amber-50 to-orange-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">About Our Story</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">Passion for coffee that spans generations</p>
-        </div>
-      </section>
-
-      {/* About Content */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8">
-              <h2 className="text-3xl font-bold text-gray-900">Our Journey</h2>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Founded in 1995 by coffee enthusiast Maria Rodriguez, Brew & Bean began as a small family roastery with
-                a simple mission: to bring the world's finest coffee directly to your cup.
-              </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Today, we work directly with farmers across Central and South America, Africa, and Asia to source the
-                highest quality beans while ensuring fair trade practices.
-              </p>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-8 pt-8">
-                <div className="text-center">
-                  <h3 className="text-4xl font-bold text-amber-600">25+</h3>
-                  <p className="text-gray-600 font-medium">Years of Excellence</p>
-                </div>
-                <div className="text-center">
-                  <h3 className="text-4xl font-bold text-amber-600">50+</h3>
-                  <p className="text-gray-600 font-medium">Coffee Origins</p>
-                </div>
-                <div className="text-center">
-                  <h3 className="text-4xl font-bold text-amber-600">10k+</h3>
-                  <p className="text-gray-600 font-medium">Happy Customers</p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <Image
-                src="/placeholder.svg?height=500&width=600"
-                alt="Coffee roasting process"
-                width={600}
-                height={500}
-                className="rounded-2xl shadow-xl"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mission & Values */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Mission & Values</h2>
-            <p className="text-xl text-gray-600">What drives us every day</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl">🌱</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Sustainability</h3>
-              <p className="text-gray-600">
-                We're committed to sustainable farming practices and supporting coffee communities worldwide.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl">⭐</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Quality</h3>
-              <p className="text-gray-600">
-                Every bean is carefully selected and roasted to perfection, ensuring the highest quality in every cup.
-              </p>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-2xl">🤝</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-4">Community</h3>
-              <p className="text-gray-600">
-                We believe in building strong relationships with our customers, farmers, and local community.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
-            <p className="text-xl text-gray-600">The passionate people behind Brew & Bean</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <Image
-                src="/placeholder.svg?height=300&width=300"
-                alt="Maria Rodriguez"
-                width={300}
-                height={300}
-                className="rounded-full mx-auto mb-6"
-              />
-              <h3 className="text-xl font-semibold mb-2">Maria Rodriguez</h3>
-              <p className="text-amber-600 font-medium mb-4">Founder & Head Roaster</p>
-              <p className="text-gray-600">
-                With over 25 years of experience, Maria's passion for coffee started this incredible journey.
-              </p>
-            </div>
-            <div className="text-center">
-              <Image
-                src="/placeholder.svg?height=300&width=300"
-                alt="James Chen"
-                width={300}
-                height={300}
-                className="rounded-full mx-auto mb-6"
-              />
-              <h3 className="text-xl font-semibold mb-2">James Chen</h3>
-              <p className="text-amber-600 font-medium mb-4">Master Barista</p>
-              <p className="text-gray-600">
-                James brings artistry to every cup with his exceptional latte art and brewing techniques.
-              </p>
-            </div>
-            <div className="text-center">
-              <Image
-                src="/placeholder.svg?height=300&width=300"
-                alt="Sarah Johnson"
-                width={300}
-                height={300}
-                className="rounded-full mx-auto mb-6"
-              />
-              <h3 className="text-xl font-semibold mb-2">Sarah Johnson</h3>
-              <p className="text-amber-600 font-medium mb-4">Quality Control Manager</p>
-              <p className="text-gray-600">
-                Sarah ensures every batch meets our high standards through rigorous testing and cupping.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Brew & Bean</h3>
-              <p className="text-gray-400">
-                Crafting the perfect cup since 1995. Experience the finest coffee beans from around the world.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-                    Home
-                  </Link>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
                 </li>
-                <li>
-                  <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
-                    About
-                  </Link>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link active">About</a>
                 </li>
-                <li>
-                  <Link href="/products" className="text-gray-400 hover:text-white transition-colors">
-                    Products
-                  </Link>
+                <li class="nav-item">
+                    <a href="products.html" class="nav-link">Products</a>
                 </li>
-                <li>
-                  <Link href="/menu" className="text-gray-400 hover:text-white transition-colors">
-                    Menu
-                  </Link>
+                <li class="nav-item">
+                    <a href="menu.html" class="nav-link">Menu</a>
                 </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
-              <p className="text-gray-400">
-                123 Coffee Street
-                <br />
-                Downtown District
-                <br />
-                City, State 12345
-              </p>
-              <p className="text-gray-400 mt-2">Phone: (555) 123-4567</p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Newsletter</h4>
-              <p className="text-gray-400 mb-4">Subscribe for coffee tips and special offers</p>
-              <form className="flex">
-                <input type="email" placeholder="Your email" className="flex-1 px-4 py-2 rounded-l-lg text-gray-900" />
-                <button
-                  type="submit"
-                  className="bg-amber-600 px-4 py-2 rounded-r-lg hover:bg-amber-700 transition-colors"
-                >
-                  Subscribe
+                <li class="nav-item">
+                    <a href="services.html" class="nav-link">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a href="blog.html" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <!-- Cart Icon -->
+            <div class="cart-container">
+                <button class="cart-button" onclick="toggleCart()">
+                    <svg class="cart-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-count">0</span>
                 </button>
-              </form>
+                
+                <!-- Cart Dropdown -->
+                <div class="cart-dropdown" id="cart-dropdown">
+                    <div class="cart-header">
+                        <h3>Shopping Cart</h3>
+                    </div>
+                    <div class="cart-items" id="cart-items">
+                        <p class="empty-cart">Your cart is empty</p>
+                    </div>
+                    <div class="cart-footer" id="cart-footer" style="display: none;">
+                        <div class="cart-total">
+                            <span>Total: $<span id="cart-total">0.00</span></span>
+                            <button onclick="clearCart()" class="clear-cart">Clear Cart</button>
+                        </div>
+                        <button class="checkout-btn">Checkout</button>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-            <p className="text-gray-400">&copy; 2024 Brew & Bean. All rights reserved.</p>
-          </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
-      </footer>
-    </div>
-  )
-}
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>About Our Story</h1>
+            <p>Passion for coffee that spans generations</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Journey</h3>
+                    <p>Founded in 1995 by coffee enthusiast Maria Rodriguez, Brew & Bean began as a small family roastery with a simple mission: to bring the world's finest coffee directly to your cup.</p>
+                    <p>Today, we work directly with farmers across Central and South America, Africa, and Asia to source the highest quality beans while ensuring fair trade practices.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h4>25+</h4>
+                            <p>Years of Excellence</p>
+                        </div>
+                        <div class="stat">
+                            <h4>50+</h4>
+                            <p>Coffee Origins</p>
+                        </div>
+                        <div class="stat">
+                            <h4>10k+</h4>
+                            <p>Happy Customers</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="/placeholder.svg?height=500&width=600" alt="Coffee roasting process" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Values -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Mission & Values</h2>
+                <p class="section-subtitle">What drives us every day</p>
+            </div>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">🌱</div>
+                    <h3>Sustainability</h3>
+                    <p>We're committed to sustainable farming practices and supporting coffee communities worldwide.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">⭐</div>
+                    <h3>Quality</h3>
+                    <p>Every bean is carefully selected and roasted to perfection, ensuring the highest quality in every cup.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">🤝</div>
+                    <h3>Community</h3>
+                    <p>We believe in building strong relationships with our customers, farmers, and local community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meet Our Team</h2>
+                <p class="section-subtitle">The passionate people behind Brew & Bean</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="/placeholder.svg?height=300&width=300" alt="Maria Rodriguez" loading="lazy">
+                    <h3>Maria Rodriguez</h3>
+                    <p class="team-role">Founder & Head Roaster</p>
+                    <p>With over 25 years of experience, Maria's passion for coffee started this incredible journey.</p>
+                </div>
+                <div class="team-member">
+                    <img src="/placeholder.svg?height=300&width=300" alt="James Chen" loading="lazy">
+                    <h3>James Chen</h3>
+                    <p class="team-role">Master Barista</p>
+                    <p>James brings artistry to every cup with his exceptional latte art and brewing techniques.</p>
+                </div>
+                <div class="team-member">
+                    <img src="/placeholder.svg?height=300&width=300" alt="Sarah Johnson" loading="lazy">
+                    <h3>Sarah Johnson</h3>
+                    <p class="team-role">Quality Control Manager</p>
+                    <p>Sarah ensures every batch meets our high standards through rigorous testing and cupping.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Brew & Bean</h3>
+                    <p>Crafting the perfect cup since 1995. Experience the finest coffee beans from around the world.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>123 Coffee Street<br>Downtown District<br>City, State 12345</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for coffee tips and special offers</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Brew & Bean. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
