@@ -247,7 +247,7 @@ function updateCartDisplay() {
                         <div class="cart-item-info">
                             <h4>${item.name}</h4>
                             <p class="item-category">${item.category}</p>
-                            <p class="item-price">$${item.price.toFixed(2)} each</p>
+                            <p class="item-price">P${item.price.toFixed(2)} each</p>
                         </div>
                         <div class="cart-item-controls">
                             <div class="quantity-controls">
@@ -255,7 +255,7 @@ function updateCartDisplay() {
                                 <span class="quantity">${item.quantity}</span>
                                 <button onclick="updateQuantity(${item.id}, 1)" class="qty-btn plus" title="Increase quantity">+</button>
                             </div>
-                            <div class="item-total">$${(item.price * item.quantity).toFixed(2)}</div>
+                            <div class="item-total">P${(item.price * item.quantity).toFixed(2)}</div>
                             <button onclick="removeFromCart(${item.id})" class="remove-item" title="Remove from cart">
                                 <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
                                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
@@ -320,22 +320,22 @@ function showCheckoutModal() {
                                         <span class="item-name">${item.name}</span>
                                         <span class="item-quantity">Qty: ${item.quantity}</span>
                                     </div>
-                                    <span class="item-total">$${(item.price * item.quantity).toFixed(2)}</span>
+                                    <span class="item-total">P${(item.price * item.quantity).toFixed(2)}</span>
                                 </div>
                             `).join('')}
                         </div>
                         <div class="order-totals">
                             <div class="total-line">
                                 <span>Subtotal:</span>
-                                <span>$${total.toFixed(2)}</span>
+                                <span>P${total.toFixed(2)}</span>
                             </div>
                             <div class="total-line">
                                 <span>Tax (8%):</span>
-                                <span>$${tax.toFixed(2)}</span>
+                                <span>P${tax.toFixed(2)}</span>
                             </div>
                             <div class="total-line final-total">
                                 <span>Total:</span>
-                                <span>$${finalTotal.toFixed(2)}</span>
+                                <span>P${finalTotal.toFixed(2)}</span>
                             </div>
                         </div>
                     </div>
@@ -371,7 +371,7 @@ function showCheckoutModal() {
                                 </label>
                                 <label class="radio-option">
                                     <input type="radio" name="orderType" value="delivery">
-                                    <span>Delivery (+$3.99)</span>
+                                    <span>Delivery (+P54.99)</span>
                                 </label>
                             </div>
                             
@@ -433,7 +433,7 @@ function showCheckoutModal() {
                 <div class="modal-footer">
                     <button type="button" class="btn-secondary" onclick="closeCheckoutModal()">Cancel</button>
                     <button type="button" class="btn-primary" onclick="processOrder()">
-                        Place Order - $${finalTotal.toFixed(2)}
+                        Place Order - P${finalTotal.toFixed(2)}
                     </button>
                 </div>
             </div>
@@ -525,14 +525,14 @@ function setupCheckoutFormListeners() {
 function updateCheckoutTotal() {
     const orderType = document.querySelector('input[name="orderType"]:checked')?.value;
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const deliveryFee = orderType === 'delivery' ? 3.99 : 0;
+    const deliveryFee = orderType === 'delivery' ? 54.99 : 0; // Updated delivery fee in BWP
     const tax = (subtotal + deliveryFee) * 0.08;
     const total = subtotal + deliveryFee + tax;
     
     // Update the button text
     const orderButton = document.querySelector('.btn-primary');
     if (orderButton) {
-        orderButton.textContent = `Place Order - $${total.toFixed(2)}`;
+        orderButton.textContent = `Place Order - P${total.toFixed(2)}`;
     }
 }
 
@@ -575,7 +575,7 @@ function processOrder() {
         
         // Calculate final totals
         const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const deliveryFee = orderData.orderType === 'delivery' ? 3.99 : 0;
+        const deliveryFee = orderData.orderType === 'delivery' ? 54.99 : 0;
         const tax = (subtotal + deliveryFee) * 0.08;
         const total = subtotal + deliveryFee + tax;
         
@@ -689,7 +689,10 @@ function validateCheckoutForm(data) {
     }
 }
 
-// ... (rest of the code remains the same)
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
 
 function showOrderConfirmation(order) {
     const modal = document.createElement('div');
@@ -719,11 +722,11 @@ function showOrderConfirmation(order) {
                         ${order.items.map(item => `
                             <div class="summary-item">
                                 <span>${item.quantity}x ${item.name}</span>
-                                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                                <span>P${(item.price * item.quantity).toFixed(2)}</span>
                             </div>
                         `).join('')}
                         <div class="summary-total">
-                            <strong>Total: $${order.totals.total}</strong>
+                            <strong>Total: P${order.totals.total}</strong>
                         </div>
                     </div>
                 </div>
@@ -812,5 +815,3 @@ function showCartNotification(message, type = 'success') {
 
 // Form Functions
 function initializeForms() {
-    // Contact form
-    const contactForm = document.getElementById('contact
